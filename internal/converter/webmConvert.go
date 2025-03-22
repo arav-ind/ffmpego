@@ -16,7 +16,13 @@ func convertFile(ffmpegPath, inputFile, outputFile string, wg *sync.WaitGroup) {
 
 	utils.LogInfo(fmt.Sprintf("Converting: %s → %s", inputFile, outputFile))
 
-	cmd := exec.Command(ffmpegPath, "-i", inputFile, "-c:v", "libvpx-vp9", "-b:v", "1M", "-c:a", "libopus", outputFile)
+	cmd := exec.Command(ffmpegPath, "-i", inputFile, 
+		"-c:v", "libvpx-vp9", "-crf", "40", "-b:v", "500k", 
+		"-c:a", "libopus", "-b:a", "64k", 
+		"-vf", "scale=iw:ih", 
+		"-y", outputFile,
+	)
+
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 
