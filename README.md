@@ -1,6 +1,6 @@
 # ffmpego!
 
-A command-line tool that utilizes FFmpeg to process video files. 
+A command-line tool that utilizes ffmpeg to process video files. 
 
 ## 📦 Features
 
