@@ -9,6 +9,14 @@ import (
 
 // GetFFmpegPath returns the absolute path to FFmpeg based on the OS.
 func GetFFmpegPath() (string, error) {
+	// Check if user has set FFMPEG_PATH environment variable
+	if envPath := os.Getenv("FFMPEG_PATH"); envPath != "" {
+		if _, err := os.Stat(envPath); err == nil {
+			return envPath, nil
+		}
+	}
+
+	// Fallback to local ffmpeg binary
 	var ffmpegPath string
 
 	if runtime.GOOS == "windows" {
